@@ -1,0 +1,8 @@
+requests
+validators
+xarray
+PROJ==8.0.0
+pynio
+rio_cogeo
+matplotlib
+cartopy
