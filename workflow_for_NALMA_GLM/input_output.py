@@ -12,3 +12,6 @@ def read_local_nc_file(location):
 
 def read_s3_nc_file(location):
     pass
+
+def output_cog(file, output_directory):
+    pass
