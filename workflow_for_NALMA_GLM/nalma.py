@@ -1,44 +1,55 @@
 import xarray as xa
 import numpy as np
+from utils import extract_file_name, scrape_nalma_directory_name
+from input_output import output_cog
 
 class preprocess_nalma():
-    def __init__(self):
-        pass
+    def __init__(self, file, variable, location):
+        self.latitude = 'latitude'
+        self.longitude = 'longitude'
+        self.variable = variable
+        self.file = file
+        self.location = location
     
-    def copy_lat_lon_data(file, var_name1, var_name2, var_name3, number=0):
-        lat = file[var_name1].data.copy()
-        lon = file[var_name2].data.copy()
-        data = file[var_name3].data[number].copy()
+    def connector(self):
+        total_grids = len(self.file[self.variable].data)
+        print(f"total_grids: {total_grids}")
+        for grid_number in range(total_grids):
+            lat, lon, data = self.copy_lat_lon_data(self.file)
+            lat, lon, data = self.delete_row_col(lat, lon, data)
+            lat, lon, data = self.flip_lat_data(lat, lon, data)
+            new_file = self.make_new_xarray(lat, lon, data)
+            self.generate_cog(new_file, grid_number)
+
+    def copy_lat_lon_data(self, file, number=0):
+        lat = file[self.latitude].data.copy()
+        lon = file[self.longitude].data.copy()
+        data = file[self.variable].data[number].copy()
         return lat, lon, data
     
-    def make_new_xarray(lat, lon, data):
+    def make_new_xarray(self, lat, lon, data):
         file = xa.Dataset(
             {
-                "flash_extent": (["longitude", "latitude"], data),
+                self.variable: ([self.longitude, self.latitude], data),
             },
             coords={
-                "longitude": (["longitude"], lon),
-                "latitude": (["latitude"], lat),
+                self.longitude: ([self.longitude], lon),
+                self.latitude: ([self.latitude], lat),
             },
         )
         return file
     
-    def generate_cog(file, variable_name, latitude, longitude, number, filename, base_path, for_terracotta):
-        file = file[variable_name]
-        file = file.transpose(latitude, longitude)
+    def generate_cog(self, file, grid_number):
+        file = file[self.variable]
+        file = file.transpose(self.latitude, self.longitude)
         file.rio.set_crs('epsg:4326')
-        file.rio.set_spatial_dims(x_dim=longitude, y_dim=latitude, inplace=True)
-        directory_name = scrape_directory_name(filename)
-        make_directory(base_path, 'output')
-        make_directory(base_path + '/output/', directory_name)
+        file.rio.set_spatial_dims(x_dim=self.longitude, y_dim=self.latitude, inplace=True)
 
-        output_directory = base_path + 'output/' + directory_name + '/'
-        file_name = output_directory + output_file_name + str(number) + '.tif'
-        print(file_name)
-        file.rio.to_raster(f"{file_name}", driver='COG')
-        #file.to_netcdf(f"{file_name}.nc")
+        directory_name = scrape_nalma_directory_name(self.location)
+        filename = extract_file_name(self.location) + f"_{grid_number}"
+        output_cog(file, directory_name, filename)
 
-    def delete_row_col(lat, lon, data):
+    def delete_row_col(self, lat, lon, data):
         #finding row with all zeroes    
         zero_row = np.where(np.all(data == 0, axis=1))[0]
         #removing lon with all zeroes
@@ -60,12 +71,12 @@ class preprocess_nalma():
         data = data[non_zero_rows][:, non_zero_columns]
         return lat, lon, data
     
-    def flip_lat_data(lat, lon, data):
+    def flip_lat_data(self, lat, lon, data):
         lat = lat[::-1]
         data = np.flip(data, axis=1)
         return lat, lon, data
 
-    def check_flashes(data):
+    def check_flashes(self, data):
         count = 0
         for row in data:
             for value in row:

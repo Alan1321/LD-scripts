@@ -1,4 +1,4 @@
-from utils import extract_variable_name
+from utils import extract_variable_name, make_directory, extract_file_name
 import xarray as xa
 
 def read_nc_file(location):
@@ -13,5 +13,6 @@ def read_local_nc_file(location):
 def read_s3_nc_file(location):
     pass
 
-def output_cog(file, output_directory):
-    pass
+def output_cog(file, directory_name, filename):
+    make_directory(directory_name)
+    file.rio.to_raster(f"{directory_name}/{filename}.tif", driver='COG')
