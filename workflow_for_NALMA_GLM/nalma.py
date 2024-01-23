@@ -15,11 +15,15 @@ class preprocess_nalma():
         total_grids = len(self.file[self.variable].data)
         print(f"total_grids: {total_grids}")
         for grid_number in range(total_grids):
-            lat, lon, data = self.copy_lat_lon_data(self.file)
-            lat, lon, data = self.delete_row_col(lat, lon, data)
-            lat, lon, data = self.flip_lat_data(lat, lon, data)
-            new_file = self.make_new_xarray(lat, lon, data)
-            self.generate_cog(new_file, grid_number)
+            lat, lon, data = self.copy_lat_lon_data(self.file, number=grid_number)
+            if self.check_flashes(data):
+                lat, lon, data = self.delete_row_col(lat, lon, data)
+                lat, lon, data = self.flip_lat_data(lat, lon, data)
+                new_file = self.make_new_xarray(lat, lon, data)
+                self.generate_cog(new_file, grid_number)
+            else:
+                print(f"### ### ### No flashes on file: {extract_file_name(self.location)}_{grid_number}")
+                continue
 
     def copy_lat_lon_data(self, file, number=0):
         lat = file[self.latitude].data.copy()

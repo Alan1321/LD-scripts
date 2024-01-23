@@ -20,3 +20,10 @@ def make_directory(path):
         os.mkdir(path)
         return True
     return False
+
+def get_all_files_in_a_directory(directory_path):
+    files = []
+    for f in os.listdir(directory_path):
+        if os.path.isfile(os.path.join(directory_path, f)) and f[0:5] == 'NALMA':
+            files.append(os.path.join(directory_path, f))
+    return files
