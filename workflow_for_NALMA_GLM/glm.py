@@ -17,6 +17,7 @@ class preprocess_glm():
     
     def generate_cog(self, file):
         print("generating cog ...")
+        file = file[self.variable]
         file = file.transpose('lat', 'lon')
         file.rio.set_spatial_dims(x_dim='lon', y_dim='lat', inplace=True)
         file.rio.crs
@@ -66,7 +67,7 @@ class preprocess_glm():
     
     def generate_new_xarray(self, lat, lon, data):
         file = xa.Dataset(
-            data_vars={"Flash_extent_density": (("lon", "lat"), data)},
+            data_vars={self.variable: (("lon", "lat"), data)},
             coords={"lon": lon, "lat": lat},
             attrs={"instrument_ID": "GLM-1"}
         )

@@ -8,6 +8,7 @@ class preprocess_nalma():
         self.latitude = 'latitude'
         self.longitude = 'longitude'
         self.variable = variable
+        print(f">>>>>>> Variable: {self.variable}")
         self.file = file
         self.location = location
     
@@ -24,6 +25,7 @@ class preprocess_nalma():
             else:
                 print(f"### ### ### No flashes on file: {extract_file_name(self.location)}_{grid_number}")
                 continue
+
 
     def copy_lat_lon_data(self, file, number=0):
         lat = file[self.latitude].data.copy()
@@ -43,14 +45,18 @@ class preprocess_nalma():
         )
         return file
     
+    def extract_file_directory_name(self, location, grid_number):
+        #extract original filename from location
+        filename = location.split('/')[-1][:-3]
+        directory_name =  filename[0:21]
+        return directory_name, f"{filename}_{grid_number}"
+    
     def generate_cog(self, file, grid_number):
         file = file[self.variable]
         file = file.transpose(self.latitude, self.longitude)
         file.rio.set_crs('epsg:4326')
         file.rio.set_spatial_dims(x_dim=self.longitude, y_dim=self.latitude, inplace=True)
-
-        directory_name = scrape_nalma_directory_name(self.location)
-        filename = extract_file_name(self.location) + f"_{grid_number}"
+        directory_name, filename = self.extract_file_directory_name(self.location, grid_number)
         output_cog(file, directory_name, filename)
 
     def delete_row_col(self, lat, lon, data):
