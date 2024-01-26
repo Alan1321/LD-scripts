@@ -1,4 +1,3 @@
-import re
 import os
 
 def make_directory(path):

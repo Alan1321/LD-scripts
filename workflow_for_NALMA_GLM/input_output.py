@@ -1,4 +1,4 @@
-from utils import extract_variable_name, make_directory, extract_file_name
+from utils import make_directory
 import xarray as xa
 
 def read_nc_file(location):

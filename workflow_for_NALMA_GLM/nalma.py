@@ -1,6 +1,5 @@
 import xarray as xa
 import numpy as np
-from utils import extract_file_name, scrape_nalma_directory_name
 from input_output import output_cog
 
 class preprocess_nalma():
@@ -23,7 +22,8 @@ class preprocess_nalma():
                 new_file = self.make_new_xarray(lat, lon, data)
                 self.generate_cog(new_file, grid_number)
             else:
-                print(f"### ### ### No flashes on file: {extract_file_name(self.location)}_{grid_number}")
+                directory_name, filename = self.extract_file_directory_name(self.location, grid_number)
+                print(f"### ### ### No flashes on file: {filename}")
                 continue
 
 
