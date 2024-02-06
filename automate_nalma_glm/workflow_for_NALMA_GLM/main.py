@@ -1,8 +1,10 @@
 from .input_output import read_nc_file
 from .nalma import preprocess_nalma
-from .utils import get_all_nalma_files_in_a_directory, get_all_files_in_a_directory
+from .utils import get_all_nalma_files_in_a_directory, get_all_files_in_a_directory, list_files
 from .glm import preprocess_glm
 import shutil
+import glob
+
 # from ..const import BASE_PATH
 
 # BASE_PATH = '/home/ubuntu/'
@@ -10,7 +12,8 @@ import shutil
 
 def convert_nalma_glm(BASE_PATH):
     #NALMA
-    all_local_nalma_files = get_all_nalma_files_in_a_directory(f"{BASE_PATH}data/NALMA_input/")
+    all_local_nalma_files = list_files(f"{BASE_PATH}data/NALMA_processed/grid_files/")
+    print(all_local_nalma_files)
     for each_file_location in all_local_nalma_files:
         #read NALMA netcdf4 file
         file = read_nc_file(each_file_location)

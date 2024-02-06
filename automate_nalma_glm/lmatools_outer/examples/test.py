@@ -202,7 +202,7 @@ def generate_nc_for_nalma(BASE_PATH):
               # 'mask_length':6, # length of the hexadecimal station mask column in the LMA ASCII files
               }
     center_ID='NALMA'
-    data_out = f'{BASE_PATH}data/NALMA_output/'
+    data_out = f'{BASE_PATH}data/NALMA_processed/'
     folder_path = f'{BASE_PATH}data/NALMA_input/'
     filenames = []
 

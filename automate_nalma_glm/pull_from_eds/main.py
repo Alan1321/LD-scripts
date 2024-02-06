@@ -12,11 +12,13 @@ def download_nalma_or_glm(which_dataset, date_start, date_end, BASE_PATH):
     #paths
     nalma_input_file_path = f"{BASE_PATH}data/NALMA_input"
     glm_input_file_path = f"{BASE_PATH}data/GLM_input"
+    nalma_processed = f"{BASE_PATH}data/NALMA_processed"
 
     #make data and nalma_input folder if it doesn't already exists
     make_directory(BASE_PATH + '/data/')
     make_directory(nalma_input_file_path)
     make_directory(glm_input_file_path)
+    make_directory(nalma_processed)
     if which_dataset.lower() == 'nalma':
         # downloading nalma dataset to the path below
         print("Downloading NALMA...")
