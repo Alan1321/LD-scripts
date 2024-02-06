@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: lmatools
+Version: 0.6a0
+Summary: Python tools for processing and visualizing Lightning Mapping Array data
+Home-page: https://github.com/deeplycloudy/lmatools/
+Author: Eric Bruning
+Author-email: eric.bruning@gmail.com
+License-File: LICENSE

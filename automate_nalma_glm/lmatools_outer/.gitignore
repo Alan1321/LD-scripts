@@ -1,0 +1,4 @@
+radarscan/
+*/*.pyc
+*.pyc
+*.DS_Store
