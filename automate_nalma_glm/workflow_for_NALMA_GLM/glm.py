@@ -24,7 +24,7 @@ class preprocess_glm():
         file.rio.set_crs('epsg:4326', inplace=True)
 
         directory_name, filename = self.extract_file_directory_name(self.location)
-        output_cog(file, directory_name, filename)
+        output_cog(file, directory_name, filename, 'glm_final_output')
 
     def extract_file_directory_name(self, location):
         filename = location.split('/')[-1]

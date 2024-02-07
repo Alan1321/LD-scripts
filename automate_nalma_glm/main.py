@@ -1,7 +1,8 @@
 import sys, os
 
-
-sys.path.append(f"{os.getcwd()}lmatools_outer/lamtools")
+path = f"{os.getcwd()}/lmatools_outer/lmatools"
+sys.path.append(path)
+print(path)
 
 from pull_from_eds.main import download_nalma_or_glm
 from workflow_for_NALMA_GLM.main import convert_nalma_glm

@@ -57,7 +57,7 @@ class preprocess_nalma():
         file.rio.set_crs('epsg:4326')
         file.rio.set_spatial_dims(x_dim=self.longitude, y_dim=self.latitude, inplace=True)
         directory_name, filename = self.extract_file_directory_name(self.location, grid_number)
-        output_cog(file, directory_name, filename)
+        output_cog(file, directory_name, filename, "nalma_final_output")
 
     def delete_row_col(self, lat, lon, data):
         #finding row with all zeroes    

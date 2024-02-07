@@ -19,8 +19,9 @@ import subprocess
 
 print(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append('../')
-sys.path.append("/".join(os.getcwd().split("/")[:-1])) #joining lmatools to path
-
+path = "/".join(f"{os.getcwd()}/lmatools_outer/".split("/"))
+sys.path.append(path) #joining lmatools to path
+print(path, 'here')
 from lmatools.flashsort.gen_autorun import logger_setup, sort_files
 from lmatools.flashsort.gen_sklearn import DBSCANFlashSorter
 
