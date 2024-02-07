@@ -5,10 +5,6 @@ from .glm import preprocess_glm
 import shutil
 import glob
 
-# from ..const import BASE_PATH
-
-# BASE_PATH = '/home/ubuntu/'
-# BASE_PATH = '/home/asubedi/'
 
 def convert_nalma_glm(BASE_PATH):
     #NALMA

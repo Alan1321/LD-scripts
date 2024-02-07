@@ -2,10 +2,6 @@ import os
 from .utils import make_directory, download_data
 # from ..const import BASE_PATH
 
-#consts
-# BASE_PATH = '/home/ubuntu/'
-# BASE_PATH = "/home/asubedi/"
-
 
 def download_nalma_or_glm(which_dataset, date_start, date_end, BASE_PATH):
 

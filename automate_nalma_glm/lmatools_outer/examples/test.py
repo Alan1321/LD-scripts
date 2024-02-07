@@ -19,8 +19,7 @@ import subprocess
 
 print(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append('../')
-
-sys.path.append("/home/asubedi/Desktop/work/LD-scripts/automate_nalma_glm/lmatools_outer")
+sys.path.append("/".join(os.getcwd().split("/")[:-1])) #joining lmatools to path
 
 from lmatools.flashsort.gen_autorun import logger_setup, sort_files
 from lmatools.flashsort.gen_sklearn import DBSCANFlashSorter
