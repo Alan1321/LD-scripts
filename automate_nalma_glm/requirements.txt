@@ -1,0 +1,5 @@
+earthaccess
+tables
+scikit-learn
+matplotlib
+boto3

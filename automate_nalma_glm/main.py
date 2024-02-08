@@ -14,6 +14,7 @@ import shutil
 bucket_name = 'cog-nalma-glm'
 
 def start(dataset_name, date_start, date_end):
+    print(f"{BASE_PATH}data/")
     shutil.rmtree(f"{BASE_PATH}data/")
     download_nalma_or_glm(dataset_name, date_start, date_end, BASE_PATH)
     #local path needed for s3 upload
