@@ -29,17 +29,18 @@ def start(dataset_name, date_start, date_end):
 
     print(">>>>Uploading COG to the bucket....")
     # Upload directory contents to S3
-    s3_prefix = dataset_name
+    s3_prefix = dataset_name.lower()
     upload_directory_contents_to_s3(local_path, bucket_name, s3_prefix)
 
 #sample nalma test
-# dataset_name = 'nalma'
-# date_start, date_end = '2020-03-05','2020-03-06'
+dataset_name = 'nalma'
+date_start = '2020-03-05 04:00:00'
+date_end = '2020-03-05 05:59:59'
 
 #sample glm test
-dataset_name = 'glm'
-date_start = "2024-01-01 00:00:00"
-date_end = "2024-01-01 00:01:00"
+# dataset_name = 'glm'
+# date_start = "2024-01-01 00:00:00"
+# date_end = "2024-01-01 00:01:00"
 
 #start processing
 start(dataset_name, date_start, date_end)
