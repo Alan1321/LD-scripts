@@ -3,3 +3,6 @@ tables
 scikit-learn
 matplotlib
 boto3
+delaunay
+scipy==1.9.1
+numpy==1.23.2
