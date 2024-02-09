@@ -45,7 +45,7 @@ date_start = "2024-01-01 00:00:00"
 date_end = "2024-01-01 00:01:00"
 
 #start processing
-start(dataset_name, date_start, date_end)
+# start(dataset_name, date_start, date_end)
 
 #terminate the instance
 load_dotenv()
